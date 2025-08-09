@@ -1,37 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Pixxel-AI Image Editor 
+A full-stack, AI-powered image editor built with Next.js, Fabric.js, Tailwind CSS, ImageKit, Shadcn UI, Clerk, and Convex.
 
-## Getting Started
+Features
+Real-time image editing with Fabric.js
 
-First, run the development server:
+Drag-and-drop and canvas tools (brush, shapes, text overlays, filters)
 
-```bash
+Secure image uploads via ImageKit, configured through API
+
+User authentication powered by Clerk
+
+Backend logic with Convex for state sync and durable image handling
+
+Beautiful UI components using Shadcn UI and clean styling with Tailwind CSS
+
+Modern, scalable stack using Next.js
+
+
+How It Works
+User Authentication
+Handle login/signup using Clerk. Each user session is tracked securely.
+
+Canvas & Editing Tools
+Users can edit images on the canvas using Fabric.js integrations built as React components and hooks.
+
+Image Uploads
+Edits are uploaded securely to ImageKit via protected endpoints or Convex mutations—no private keys leaked to the frontend.
+
+State Sync
+Convex manages backend sync (image storage, metadata, user associations) without heavy config.
+
+UI Flow
+UI components (modals, buttons, toolbars) are styled with Shadcn UI and responsive design with Tailwind CSS.
+
+Folder Structure
+
+Edit
+├── app/               # Next.js pages
+├── components/        # UI components (shadcn + custom)
+├── context/           # React context (e.g., for Canvas state)
+├── convex/            # Convex backend functions
+├── hooks/             # Reusable React hooks
+├── lib/               # Utility functions and integrations
+├── public/            # Static assets
+├── README.md          # Project overview
+└── .gitignore, config files, etc.
+
+
+Installation
+bash
+Copy
+Edit
+git clone https://github.com/piyush-eon/ai-image-editor.git
+cd ai-image-editor
+npm install
+# or
+yarn install
+Running Locally
+bash
+Copy
+Edit
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-"# Pixxel-ai" 
