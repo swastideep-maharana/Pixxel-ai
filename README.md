@@ -29,21 +29,7 @@
 
 ---
 
-## 📂 Folder Structure
-pixxel-ai-image-editor/
-├── app/ # Next.js app pages
-├── components/ # Shadcn + custom UI components
-├── context/ # Global canvas state
-├── convex/ # Convex backend functions
-├── hooks/ # Reusable hooks
-├── lib/ # Utility functions & integrations
-├── public/ # Static assets
-├── README.md
-└── config files # .gitignore, env, etc.
 
-npm install
-# or
-yarn install
 
 
 
