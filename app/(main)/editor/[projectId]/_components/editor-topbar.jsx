@@ -31,7 +31,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useCanvas } from "@/context/context";
 import { usePlanAccess } from "@/hooks/use-plan-access";
-import { UpgradeModal } from "@/components/upgrade-modal";
+
 import { FabricImage } from "fabric";
 import { api } from "@/convex/_generated/api";
 import { useConvexMutation, useConvexQuery } from "@/hooks/use-convex-query";
@@ -110,7 +110,7 @@ export function EditorTopBar({ project }) {
   const router = useRouter();
   const [isExporting, setIsExporting] = useState(false);
   const [exportFormat, setExportFormat] = useState(null);
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+
   const [restrictedTool, setRestrictedTool] = useState(null);
 
   // Undo/Redo state
@@ -247,13 +247,8 @@ export function EditorTopBar({ project }) {
     router.push("/dashboard");
   };
 
-  // Handle tool change with access control
+  // Handle tool change - all tools are now free
   const handleToolChange = (toolId) => {
-    if (!hasAccess(toolId)) {
-      setRestrictedTool(toolId);
-      setShowUpgradeModal(true);
-      return;
-    }
     onToolChange(toolId);
   };
 
@@ -284,12 +279,7 @@ export function EditorTopBar({ project }) {
       return;
     }
 
-    // Check export limits for free users
-    if (!canExport(user?.exportsThisMonth || 0)) {
-      setRestrictedTool("export");
-      setShowUpgradeModal(true);
-      return;
-    }
+    // Export is now unlimited for all users
 
     setIsExporting(true);
     setExportFormat(exportConfig.format);
@@ -527,17 +517,6 @@ export function EditorTopBar({ project }) {
                 <DropdownMenuSeparator className="bg-slate-700" />
 
                 {/* Export Limit Info for Free Users */}
-                {isFree && (
-                  <div className="px-3 py-2 text-xs text-white/50">
-                    Free Plan: {user?.exportsThisMonth || 0}/20 exports this
-                    month
-                    {(user?.exportsThisMonth || 0) >= 20 && (
-                      <div className="text-amber-400 mt-1">
-                        Upgrade to Pro for unlimited exports
-                      </div>
-                    )}
-                  </div>
-                )}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -602,21 +581,6 @@ export function EditorTopBar({ project }) {
           </div>
         </div>
       </div>
-
-      {/* Upgrade Modal */}
-      <UpgradeModal
-        isOpen={showUpgradeModal}
-        onClose={() => {
-          setShowUpgradeModal(false);
-          setRestrictedTool(null);
-        }}
-        restrictedTool={restrictedTool}
-        reason={
-          restrictedTool === "export"
-            ? "Free plan is limited to 20 exports per month. Upgrade to Pro for unlimited exports."
-            : undefined
-        }
-      />
     </>
   );
 }

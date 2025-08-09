@@ -69,7 +69,7 @@ export default defineSchema({
 });
 
 /* 
-PLAN LIMITS EXAMPLE:
-- Free: 3 projects, 20 exports/month, basic features only
-- Pro: Unlimited projects/exports, all AI features
+PLAN INFORMATION:
+- All features are free and unlimited for all users
+- No plan restrictions or limits
 */

@@ -4,21 +4,19 @@ import { useAuth } from "@clerk/nextjs";
 export function usePlanAccess() {
   const { has } = useAuth();
 
-  const isPro = has?.({ plan: "pro" }) || false;
-  const isFree = !isPro; // If not pro, then free (default)
+  // Everything is free now - no pro plan needed
+  const isPro = false;
+  const isFree = true;
 
-  // Define which tools are available for each plan
+  // All tools are available for free
   const planAccess = {
-    // Free plan tools
     resize: true,
     crop: true,
     adjust: true,
     text: true,
-
-    // Pro-only tools
-    background: isPro,
-    ai_extender: isPro,
-    ai_edit: isPro,
+    background: true,
+    ai_extender: true,
+    ai_edit: true,
   };
 
   // Helper function to check if user has access to a specific tool
@@ -28,25 +26,21 @@ export function usePlanAccess() {
 
   // Get restricted tools that user doesn't have access to
   const getRestrictedTools = () => {
-    return Object.entries(planAccess)
-      .filter(([_, hasAccess]) => !hasAccess)
-      .map(([toolId]) => toolId);
+    return []; // No restricted tools - everything is free
   };
 
   // Check if user has reached project limits
   const canCreateProject = (currentProjectCount) => {
-    if (isPro) return true;
-    return currentProjectCount < 3; // Free limit
+    return true; // Unlimited projects for free
   };
 
   // Check if user has reached export limits
   const canExport = (currentExportsThisMonth) => {
-    if (isPro) return true;
-    return currentExportsThisMonth < 20;
+    return true; // Unlimited exports for free
   };
 
   return {
-    userPlan: isPro ? "pro" : "free_user",
+    userPlan: "free_user",
     isPro,
     isFree,
     hasAccess,

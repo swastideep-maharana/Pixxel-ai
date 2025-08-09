@@ -19,20 +19,9 @@ const PricingCard = ({
   // Check if user has this specific plan
   const isCurrentPlan = id ? has?.({ plan: id }) : false;
 
-  const handlePopup = async () => {
-    if (isCurrentPlan) return; // Don't open checkout for current plan
-
-    try {
-      if (window.Clerk && window.Clerk.__internal_openCheckout) {
-        await window.Clerk.__internal_openCheckout({
-          planId: planId,
-          planPeriod: "month",
-          subscriberType: "user",
-        });
-      }
-    } catch (error) {
-      console.error("Checkout error:", error);
-    }
+  const handlePopup = () => {
+    // Redirect to sign up since everything is free
+    window.location.href = "/sign-up";
   };
 
   return (
@@ -91,32 +80,22 @@ const PricingSection = () => {
   const plans = [
     {
       id: "free_user",
-      plan: "Free",
+      plan: "Free Forever",
       price: 0,
-      features: [
-        "3 projects maximum",
-        "20 exports per month",
-        "Basic crop & resize",
-        "Color adjustments",
-        "Text Tool",
-      ],
-      buttonText: "Get Started Free",
-    },
-    {
-      id: "pro",
-      plan: "Pro",
-      price: 12,
       features: [
         "Unlimited projects",
         "Unlimited exports",
         "All Editing Tools",
         "AI Background Remover",
         "AI Image Extender",
-        "AI Retouch, Upscaler and more",
+        "AI Retouch & Upscaler",
+        "Color adjustments",
+        "Crop & Resize",
+        "Text Tool",
+        "And much more!",
       ],
       featured: true,
-      planId: "cplan_2ywZwXjYQQipWYxjCmFZCgCgsTZ",
-      buttonText: "Upgrade to Pro",
+      buttonText: "Get Started Free",
     },
   ];
 
@@ -125,21 +104,22 @@ const PricingSection = () => {
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-white mb-6">
-            Simple{" "}
             <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-              Pricing
+              Free Forever
             </span>
           </h2>
           <p className="text-xl text-gray-300">
-            Start free and upgrade when you need more power. No hidden fees,
-            cancel anytime.
+            Everything you need to create amazing images with AI - completely
+            free, forever.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {plans.map((plan, index) => (
-            <PricingCard key={index} {...plan} />
-          ))}
+        <div className="flex justify-center">
+          <div className="max-w-md">
+            {plans.map((plan, index) => (
+              <PricingCard key={index} {...plan} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

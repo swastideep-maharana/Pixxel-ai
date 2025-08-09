@@ -32,19 +32,7 @@ export const create = mutation({
   handler: async (ctx, args) => {
     const user = await ctx.runQuery(internal.users.getCurrentUser);
 
-    // Check plan limits for free users
-    if (user.plan === "free") {
-      const projectCount = await ctx.db
-        .query("projects")
-        .withIndex("by_user", (q) => q.eq("userId", user._id))
-        .collect();
-
-      if (projectCount.length >= 3) {
-        throw new Error(
-          "Free plan limited to 3 projects. Upgrade to Pro for unlimited projects."
-        );
-      }
-    }
+    // Unlimited projects for all users
 
     // Create the project
     const projectId = await ctx.db.insert("projects", {

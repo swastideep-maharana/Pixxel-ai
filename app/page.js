@@ -68,7 +68,7 @@ const HeroSection = () => {
                   <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
-                <div className="text-gray-400 text-sm">Pixxel Pro</div>
+                <div className="text-gray-400 text-sm">Pixxel AI</div>
               </div>
 
               <div className="grid grid-cols-4 gap-4 mb-6">
@@ -109,7 +109,7 @@ const App = () => {
       <HeroSection />
       <InteractiveStats />
       <FeaturesSection />
-      <PricingSection />
+      {/* <PricingSection /> */}
 
       {/* Final CTA Section */}
       <section className="py-20 text-center">

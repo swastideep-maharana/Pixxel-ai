@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { useDropzone } from "react-dropzone";
 import { useConvexMutation, useConvexQuery } from "@/hooks/use-convex-query";
 import { usePlanAccess } from "@/hooks/use-plan-access";
-import { UpgradeModal } from "@/components/upgrade-modal";
+
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -27,16 +27,15 @@ export function NewProjectModal({ isOpen, onClose }) {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [projectTitle, setProjectTitle] = useState("");
   const [isUploading, setIsUploading] = useState(false);
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   const { mutate: createProject } = useConvexMutation(api.projects.create);
   const { data: projects } = useConvexQuery(api.projects.getUserProjects);
   const { canCreateProject, isFree } = usePlanAccess();
   const router = useRouter();
 
-  // Check if user can create new project
+  // Unlimited projects for all users
   const currentProjectCount = projects?.length || 0;
-  const canCreate = canCreateProject(currentProjectCount);
+  const canCreate = true;
 
   // Handle file drop
   const onDrop = useCallback((acceptedFiles) => {
@@ -60,14 +59,8 @@ export function NewProjectModal({ isOpen, onClose }) {
     maxSize: 20 * 1024 * 1024, // 20MB limit
   });
 
-  // Handle create project with plan limit check
+  // Handle create project - unlimited for all users
   const handleCreateProject = async () => {
-    // Check project limits first
-    if (!canCreate) {
-      setShowUpgradeModal(true);
-      return;
-    }
-
     if (!selectedFile || !projectTitle.trim()) {
       toast.error("Please select an image and enter a project title");
       return;
@@ -141,7 +134,7 @@ export function NewProjectModal({ isOpen, onClose }) {
                     variant="secondary"
                     className="bg-slate-700 text-white/70"
                   >
-                    {currentProjectCount}/3 projects
+                    {currentProjectCount} projects
                   </Badge>
                 )}
               </div>
@@ -149,23 +142,6 @@ export function NewProjectModal({ isOpen, onClose }) {
           </DialogHeader>
 
           <div className="space-y-6">
-            {/* Project Limit Warning for Free Users */}
-            {isFree && currentProjectCount >= 2 && (
-              <Alert className="bg-amber-500/10 border-amber-500/20">
-                <Crown className="h-5 w-5 text-amber-400" />
-                <AlertDescription className="text-amber-300/80">
-                  <div className="font-semibold text-amber-400 mb-1">
-                    {currentProjectCount === 2
-                      ? "Last Free Project"
-                      : "Project Limit Reached"}
-                  </div>
-                  {currentProjectCount === 2
-                    ? "This will be your last free project. Upgrade to Pixxel Pro for unlimited projects."
-                    : "Free plan is limited to 3 projects. Upgrade to Pixxel Pro to create more projects."}
-                </AlertDescription>
-              </Alert>
-            )}
-
             {/* File Upload Area */}
             {!selectedFile ? (
               <div
@@ -174,7 +150,7 @@ export function NewProjectModal({ isOpen, onClose }) {
                   isDragActive
                     ? "border-cyan-400 bg-cyan-400/5"
                     : "border-white/20 hover:border-white/40"
-                } ${!canCreate ? "opacity-50 pointer-events-none" : ""}`}
+                }`}
               >
                 <input {...getInputProps()} />
                 <Upload className="h-12 w-12 text-white/50 mx-auto mb-4" />
@@ -182,9 +158,7 @@ export function NewProjectModal({ isOpen, onClose }) {
                   {isDragActive ? "Drop your image here" : "Upload an Image"}
                 </h3>
                 <p className="text-white/70 mb-4">
-                  {canCreate
-                    ? "Drag and drop your image, or click to browse"
-                    : "Upgrade to Pro to create more projects"}
+                  Drag and drop your image, or click to browse
                 </p>
                 <p className="text-sm text-white/50">
                   Supports PNG, JPG, WEBP up to 20MB
@@ -273,14 +247,6 @@ export function NewProjectModal({ isOpen, onClose }) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      {/* Upgrade Modal */}
-      <UpgradeModal
-        isOpen={showUpgradeModal}
-        onClose={() => setShowUpgradeModal(false)}
-        restrictedTool="projects"
-        reason="Free plan is limited to 3 projects. Upgrade to Pro for unlimited projects and access to all AI editing tools."
-      />
     </>
   );
 }
