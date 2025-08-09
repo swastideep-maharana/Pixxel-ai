@@ -1,63 +1,53 @@
-Pixxel-AI Image Editor 
-A full-stack, AI-powered image editor built with Next.js, Fabric.js, Tailwind CSS, ImageKit, Shadcn UI, Clerk, and Convex.
+# 🎨 Pixxel-AI Image Editor
 
-Features
-Real-time image editing with Fabric.js
+**Pixxel-AI** is a **full-stack AI-powered image editor** built with  
+**Next.js**, **Fabric.js**, **Tailwind CSS**, **ImageKit**, **Shadcn UI**, **Clerk**, and **Convex**.
 
-Drag-and-drop and canvas tools (brush, shapes, text overlays, filters)
+![License](https://img.shields.io/badge/license-MIT-green)  
+![Next.js](https://img.shields.io/badge/Next.js-13-black)  
+![Fabric.js](https://img.shields.io/badge/Fabric.js-Canvas-blue)  
+![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC)  
+![Status](https://img.shields.io/badge/status-Active-brightgreen)
 
-Secure image uploads via ImageKit, configured through API
+---
 
-User authentication powered by Clerk
+## ✨ Features
 
-Backend logic with Convex for state sync and durable image handling
+- 🎯 **Real-time Image Editing** – Interactive canvas editing with **Fabric.js**
+- 🖌 **Advanced Tools** – Brush, shapes, text, overlays, filters, drag-and-drop
+- 🔒 **Secure Uploads** – Upload to **ImageKit** via protected Convex API routes
+- 👤 **Authentication** – Seamless login/signup with **Clerk**
+- ⚡ **Real-time Sync** – **Convex** for backend sync, storage, and metadata
+- 💎 **Modern UI** – Responsive, accessible design with **Shadcn UI** + **Tailwind CSS**
+- 🚀 **Production-Ready Stack** – Scalable with **Next.js**
 
-Beautiful UI components using Shadcn UI and clean styling with Tailwind CSS
+---
 
-Modern, scalable stack using Next.js
+## 🛠 How It Works
 
+1️⃣ **Authentication** – User sessions are handled with **Clerk**, ensuring secure login/signup.  
+2️⃣ **Canvas Editing** – Fabric.js tools built as React hooks & components enable rich image manipulation.  
+3️⃣ **Secure Uploads** – Images are stored in **ImageKit** through secure Convex endpoints (no API keys in the frontend).  
+4️⃣ **State Management** – **Convex** handles data sync, metadata storage, and user associations.  
+5️⃣ **UI/UX** – Clean, modern components with **Shadcn UI** and **Tailwind CSS**.
 
-How It Works
-User Authentication
-Handle login/signup using Clerk. Each user session is tracked securely.
+---
 
-Canvas & Editing Tools
-Users can edit images on the canvas using Fabric.js integrations built as React components and hooks.
+## 📂 Folder Structure
+pixxel-ai-image-editor/
+├── app/ # Next.js app pages
+├── components/ # Shadcn + custom UI components
+├── context/ # Global canvas state
+├── convex/ # Convex backend functions
+├── hooks/ # Reusable hooks
+├── lib/ # Utility functions & integrations
+├── public/ # Static assets
+├── README.md
+└── config files # .gitignore, env, etc.
 
-Image Uploads
-Edits are uploaded securely to ImageKit via protected endpoints or Convex mutations—no private keys leaked to the frontend.
-
-State Sync
-Convex manages backend sync (image storage, metadata, user associations) without heavy config.
-
-UI Flow
-UI components (modals, buttons, toolbars) are styled with Shadcn UI and responsive design with Tailwind CSS.
-
-Folder Structure
-
-Edit
-├── app/               # Next.js pages
-├── components/        # UI components (shadcn + custom)
-├── context/           # React context (e.g., for Canvas state)
-├── convex/            # Convex backend functions
-├── hooks/             # Reusable React hooks
-├── lib/               # Utility functions and integrations
-├── public/            # Static assets
-├── README.md          # Project overview
-└── .gitignore, config files, etc.
-
-
-Installation
-bash
-Copy
-Edit
-git clone https://github.com/piyush-eon/ai-image-editor.git
-cd ai-image-editor
 npm install
 # or
 yarn install
-Running Locally
-bash
-Copy
-Edit
-npm run dev
+
+
+
