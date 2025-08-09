@@ -3,11 +3,7 @@
 **Pixxel-AI** is a **full-stack AI-powered image editor** built with  
 **Next.js**, **Fabric.js**, **Tailwind CSS**, **ImageKit**, **Shadcn UI**, **Clerk**, and **Convex**.
 
-![License](https://img.shields.io/badge/license-MIT-green)  
-![Next.js](https://img.shields.io/badge/Next.js-13-black)  
-![Fabric.js](https://img.shields.io/badge/Fabric.js-Canvas-blue)  
-![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC)  
-![Status](https://img.shields.io/badge/status-Active-brightgreen)
+
 
 ---
 
